@@ -53,6 +53,7 @@ def ls_cont_name():
     return [container for container in client.containers.list(all=True) if container.name[:2] == 'WD']        
 
 if __name__ == "__main__":
+    #create('ub_inst2')
     #create('win_inst2')
     #stop('WD1')
     #print(restart('WD1'))

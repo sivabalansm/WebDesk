@@ -1,8 +1,10 @@
 #! /bin/python3
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import manager
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/machines')
@@ -12,15 +14,20 @@ def get_machines():
     return jsonify(machines)
 
 
-@app.route('/create', methods=['POST'])
+@app.route('/create', methods=['POST', 'OPTIONS'])
 def create_instance():
     resp = request.get_json()
+    print(resp)
     if resp['type'] == 'win':
         inst = manager.create('win_inst2')
         print(inst.name)
         machine = {inst.name: [inst.status, 6080 + int(inst.name[2:])]}
+        response = jsonify(machine)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+
         print(machine)
-        return jsonify(machine), 204
+        return response
+    return '',200
 
 @app.route('/restart', methods=['POST'])
 def restart_instance():

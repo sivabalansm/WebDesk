@@ -13,3 +13,6 @@ RUN unzip v1.4.0.zip
 RUN cd ./websockify-0.11.0;python3 setup.py install
 
 COPY entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT './entrypoint.sh'

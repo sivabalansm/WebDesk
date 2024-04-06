@@ -50,15 +50,13 @@ def delete(name):
             container.remove()
 
 def ls_cont_name():
-    for container in client.containers.list(all=True):
-        print(container, container.name, container.status)
+    return [container for container in client.containers.list(all=True) if container.name[:2] == 'WD']        
 
 if __name__ == "__main__":
     #create('win_inst2')
-    stop('WD0')
-    #print(restart('WD0'))
+    #stop('WD1')
+    #print(restart('WD1'))
 
-
-    #delete('WD2')
-    ls_cont_name()
+    delete('WD0')
+    print(ls_cont_name())
 
